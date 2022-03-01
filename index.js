@@ -198,3 +198,134 @@ class Student extends User {
 }
 let alex = new Student("Alex", "Macedonskiy", 2018);
 console.log(alex.getFullCourse());
+
+
+
+
+/* Реализуйте класс Elem, который параметром принимает селектор одного HTML элемента и затем может выполнять с ним различные операции. Класс должен работать следующим образом:
+
+var elem = new Elem('селектор');
+
+elem.html('!'); //запишет в текст элемента '!'
+elem.append('!'); //запишет в начало элемента '!'
+elem.prepend('!'); //запишет в конец элемента '!'
+elem.attr('class', 'www'); //запишет в атрибут class значение www
+
+//Должны работать цепочки методов:
+elem.html('hello').append('!').prepend('!');
+elem.attr('class', 'www').attr('title', 'hello');*/
+
+class Elem {
+	constructor(selector) {
+		this.elem = document.querySelector(selector);
+	}
+
+	html(text) {
+		this.elem.innerHTML = text;
+		return this
+	}
+	prepend(text_top) {
+		this.elem.prepend(text_top)
+			return this
+	}
+	append(text_end) {
+		this.elem.append(text_end)
+		return this
+	}
+	attr(name, value) {
+		this.elem.setAttribute(name, value)
+		return this
+	}
+}
+
+/*let elem = new Elem("#text");
+elem.html('Hello world').prepend('!').append('!!!').attr('class', 'www');
+
+let elem2 = new Elem("#text2");
+elem2.attr('class', 'www').attr('title', 'hello').html('JavaScript').prepend('!').append('!!!');*/
+
+
+
+/* Модифицируйте класс Elem из предыдущей задачи так, чтобы он мог работать не только с одним элементом, но и одновременно с группой, как это сделано в jQuery. Кроме того: реализуйте еще и метод each, который будет работать также, как и each из jQuery.*/
+
+class ElemMod {
+	constructor(selector) {
+		this.elements = document.querySelectorAll(selector);
+	}
+
+	html(text) {
+		for(let elem of this.elements) {
+    elem.innerHTML = text;
+    		}
+		return this;
+	}
+
+	prepend(text_top) {
+		for(let elem of this.elements) {
+    elem.prepend(text_top)
+    		}	
+			return this;
+	}
+
+	append(text_end) {
+		for(let elem of this.elements) {
+    elem.append(text_end);
+    		}
+		return this;
+	}
+
+	attr(name, value) {
+		for(let elem of this.elements) {
+    elem.setAttribute(name, value);
+    		}
+		return this;
+	}
+	each(func) {
+		this.elements.forEach(func)
+	}
+}
+let elem3 = new ElemMod("p");
+console.log(elem3)
+elem3.html("New Text Text Text")
+
+elem3.each((x, index)  => (x.innerHTML = index + 1 + ": " + x.innerHTML));
+
+
+
+
+/*Реализуйте класс Rectangle, о котором я рассказываю в видео в теоретической части урока. У него должны быть следующие свойства: ширина width, высота height. Также у него должны быть следующие методы: получить ширину getWidth, установить ширину setWidth, получить высоту getHeight, установить высоту setHeight.*/
+
+class Rectangle {
+	constructor(width, height) {
+		this.div = document.createElement("div");
+		this.div.style.border = "1px solid red"
+		document.body.append(this.div);
+
+		this.div.style.width = 100 + "px";
+		this.div.style.height = 100 + "px";
+	}
+
+	getWidth() {
+		console.log(this.width);
+	}
+
+	setWidth(width) {
+		this.width = width + "px";
+		this.div.style.width = this.width; 
+	}
+
+	getHeight(height) {
+		console.log(this.height);
+	}
+
+	setHeight(height){
+		this.height = height + "px";
+		this.div.style.height = this.height; 
+	}
+}
+
+let rectangle = new Rectangle();
+rectangle.setWidth(200);
+rectangle.setHeight(300);
+rectangle.getWidth();
+rectangle.getHeight();
